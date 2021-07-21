@@ -1,0 +1,21 @@
+{
+	"name": "repro-03052021",
+	"properties": {
+		"globalParameters": {
+			"URL": {
+				"type": "string",
+				"value": "https://adb-2588947612538845.5.azuredatabricks.net"
+			},
+			"ID": {
+				"type": "string",
+				"value": "0715-111843-tonne414"
+			}
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "5793d447-3bc4-4131-b54c-544a53dd820d",
+		"tenantId": "72f988bf-86f1-41af-91ab-2d7cd011db47"
+	}
+}

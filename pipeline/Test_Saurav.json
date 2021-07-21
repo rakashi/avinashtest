@@ -1,0 +1,19 @@
+{
+	"name": "Test_Saurav",
+	"properties": {
+		"activities": [
+			{
+				"name": "Wait1",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": 1
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2021-07-15T10:07:34Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

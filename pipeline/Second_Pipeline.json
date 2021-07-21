@@ -1,0 +1,29 @@
+{
+	"name": "Second_Pipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "Wait1",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": 1
+				}
+			}
+		],
+		"parameters": {
+			"Param1": {
+				"type": "string",
+				"defaultValue": "A"
+			},
+			"Param2": {
+				"type": "string",
+				"defaultValue": "B"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-07-14T12:23:19Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
