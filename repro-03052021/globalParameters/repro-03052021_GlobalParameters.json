@@ -1,0 +1,10 @@
+{
+	"URL": {
+		"type": "string",
+		"value": "https://adb-2588947612538845.5.azuredatabricks.net"
+	},
+	"ID": {
+		"type": "string",
+		"value": "0715-111843-tonne414"
+	}
+}

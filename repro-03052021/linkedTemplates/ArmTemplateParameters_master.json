@@ -1,0 +1,45 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "repro-03052021"
+		},
+		"AzureDataLakeStorageDemo_accountKey": {
+			"value": ""
+		},
+		"AzureDatabricks2_accessToken": {
+			"value": ""
+		},
+		"AzureSqlDatabaseDemo_connectionString": {
+			"value": ""
+		},
+		"AzureDataLakeStorageTestNagesg_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorageDemo_properties_typeProperties_url": {
+			"value": "https://adfdemosstore.dfs.core.windows.net"
+		},
+		"MoviesS3_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/djpmsft/adf-ready-demo/master/moviesDB.csv"
+		},
+		"SSIS-IR-1_properties_typeProperties_ssisProperties_catalogInfo_catalogServerEndpoint": {
+			"value": "msftrepro.database.windows.net"
+		},
+		"SSIS-IR-1_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminUserName": {
+			"value": "msftrepro"
+		},
+		"SSIS-IR-1_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
+			"value": ""
+		},
+		"AzureDataLakeStorageTestNagesg_properties_typeProperties_url": {
+			"value": "https://adfdemosstore.dfs.core.windows.net"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
