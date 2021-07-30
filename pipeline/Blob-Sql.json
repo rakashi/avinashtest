@@ -36,10 +36,16 @@
 						}
 					},
 					"sink": {
-						"type": "AzureSqlSink",
-						"writeBehavior": "insert",
-						"tableOption": "autoCreate",
-						"disableMetricsCollection": false
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						},
+						"writeBehavior": "insert"
 					},
 					"enableStaging": false,
 					"translator": {
@@ -59,7 +65,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "AzureSqlTableDemo",
+						"referenceName": "MoviesADLS",
 						"type": "DatasetReference"
 					}
 				]
