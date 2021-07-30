@@ -1,0 +1,28 @@
+{
+	"name": "trigger1",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Blob-Sql",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"Input": "ewdewdf",
+					"Output": "sdfsdf"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Hour",
+				"interval": 15,
+				"startTime": "2021-07-30T13:50:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}
