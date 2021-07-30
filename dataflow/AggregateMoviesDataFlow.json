@@ -19,7 +19,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "MoviesDataIntoSQLDB",
+						"referenceName": "MoviesHTTPDataset",
 						"type": "DatasetReference"
 					},
 					"name": "SinkToDW"
@@ -45,7 +45,7 @@
 					"name": "FilterYearsBefore1950"
 				}
 			],
-			"script": "source(output(\n\t\tmovie as string,\n\t\ttitle as string,\n\t\tgenres as string,\n\t\tyear as string,\n\t\tRating as string,\n\t\t{Rotton Tomato} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> MoviesADLS\nAggregateRatings alterRow(upsertIf(true())) ~> UpsertIfTrue\nFilterYearsBefore1950 derive(PrimaryGenre = iif(locate('|', genres) > 1, left(genres, locate('|', genres) - 1), genres)) ~> DerivePrimaryGenre\nDerivePrimaryGenre window(over(PrimaryGenre,\n\t\tyear),\n\tdesc({Rotten Tomato}, true),\n\tRatingsRank = rank()) ~> RankMoviesByRatings\nRankMoviesByRatings aggregate(groupBy(PrimaryGenre,\n\t\tyear),\n\tAverageRating = avg(toInteger({Rotten Tomato})),\n\t\tHighestRated = first(title),\n\t\tLowestRated = last(title),\n\t\tNumberOfMovies = count()) ~> AggregateRatings\nMoviesADLS select(mapColumn(\n\t\tmovie,\n\t\ttitle,\n\t\tgenres,\n\t\tyear,\n\t\t{Rotten Tomato} = {Rotton Tomato}\n\t),\n\tskipDuplicateMapInputs: false,\n\tskipDuplicateMapOutputs: false) ~> SelectAndRename\nSelectAndRename filter(toInteger(year) > 1950) ~> FilterYearsBefore1950\nUpsertIfTrue sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:false,\n\tupsertable:true,\n\tkeys:['PrimaryGenre','year'],\n\tformat: 'table',\n\terrorHandlingOption: 'stopOnFirstError',\n\tpartitionBy('hash', 1)) ~> SinkToDW"
+			"script": "source(output(\n\t\tmovie as string,\n\t\ttitle as string,\n\t\tgenres as string,\n\t\tyear as string,\n\t\tRating as string,\n\t\t{Rotton Tomato} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> MoviesADLS\nAggregateRatings alterRow(upsertIf(true())) ~> UpsertIfTrue\nFilterYearsBefore1950 derive(PrimaryGenre = iif(locate('|', genres) > 1, left(genres, locate('|', genres) - 1), genres)) ~> DerivePrimaryGenre\nDerivePrimaryGenre window(over(PrimaryGenre,\n\t\tyear),\n\tdesc({Rotten Tomato}, true),\n\tRatingsRank = rank()) ~> RankMoviesByRatings\nRankMoviesByRatings aggregate(groupBy(PrimaryGenre,\n\t\tyear),\n\tAverageRating = avg(toInteger({Rotten Tomato})),\n\t\tHighestRated = first(title),\n\t\tLowestRated = last(title),\n\t\tNumberOfMovies = count()) ~> AggregateRatings\nMoviesADLS select(mapColumn(\n\t\tmovie,\n\t\ttitle,\n\t\tgenres,\n\t\tyear,\n\t\t{Rotten Tomato} = {Rotton Tomato}\n\t),\n\tskipDuplicateMapInputs: false,\n\tskipDuplicateMapOutputs: false) ~> SelectAndRename\nSelectAndRename filter(toInteger(year) > 1950) ~> FilterYearsBefore1950\nUpsertIfTrue sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tumask: 0022,\n\tpartitionBy('hash', 1)) ~> SinkToDW"
 		}
 	}
 }
