@@ -4,6 +4,7 @@
 		"activities": [
 			{
 				"name": "Copy data1",
+				"description": "Test",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -20,6 +21,14 @@
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
+							"modifiedDatetimeStart": {
+								"value": "@formatDateTime(pipeline().parameters.Input)",
+								"type": "Expression"
+							},
+							"modifiedDatetimeEnd": {
+								"value": "@formatDateTime(pipeline().parameters.Output)",
+								"type": "Expression"
+							},
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
@@ -56,8 +65,16 @@
 				]
 			}
 		],
+		"parameters": {
+			"Input": {
+				"type": "string"
+			},
+			"Output": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
-		"lastPublishTime": "2021-07-22T08:03:16Z"
+		"lastPublishTime": "2021-07-30T09:54:55Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

@@ -1,0 +1,91 @@
+{
+	"name": "Movie_Analytics",
+	"properties": {
+		"description": "Use this template to get an understanding of how to leverage the capabilities of Copy and Mapping Data Flow in Azure Data Factory\n\nThis pipeline copies a delimited text movies database from S3 to ADLS gen 2 and then Executes a Mapping Data Flow to calculate aggregate metrics by year and genre, and then write to a SQL DW",
+		"activities": [
+			{
+				"name": "AggregateAndWriteToDW",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "MoveFromS3ToADLS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "AggregateMoviesDataFlow",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			},
+			{
+				"name": "MoveFromS3ToADLS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "MoviesS3",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "MoviesHTTPDataset",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2021-07-30T10:44:41Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
