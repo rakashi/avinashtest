@@ -1,0 +1,44 @@
+{
+	"name": "AzureSqlTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Level",
+				"type": "varchar"
+			},
+			{
+				"name": "DateTime",
+				"type": "varchar"
+			},
+			{
+				"name": "Source",
+				"type": "varchar"
+			},
+			{
+				"name": "EventID",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 3
+			},
+			{
+				"name": "TaskCategory",
+				"type": "varchar"
+			},
+			{
+				"name": "Details",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Events"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

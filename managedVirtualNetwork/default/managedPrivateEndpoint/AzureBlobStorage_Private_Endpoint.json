@@ -1,0 +1,10 @@
+{
+	"name": "AzureBlobStorage_Private_Endpoint",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/d39a1078-3b40-4bdf-a61c-3e393be3d9f9/resourceGroups/MSFTRG/providers/Microsoft.Storage/storageAccounts/mvnetirstorage",
+		"groupId": "blob",
+		"fqdns": [
+			"mvnetirstorage.blob.core.windows.net"
+		]
+	}
+}
