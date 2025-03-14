@@ -9,35 +9,48 @@
 		"type": "AzureSqlTable",
 		"schema": [
 			{
-				"name": "Level",
-				"type": "varchar"
+				"name": "AddressID",
+				"type": "int",
+				"precision": 10
 			},
 			{
-				"name": "DateTime",
-				"type": "varchar"
+				"name": "AddressLine1",
+				"type": "nvarchar"
 			},
 			{
-				"name": "Source",
-				"type": "varchar"
+				"name": "AddressLine2",
+				"type": "nvarchar"
 			},
 			{
-				"name": "EventID",
-				"type": "decimal",
-				"precision": 18,
+				"name": "City",
+				"type": "nvarchar"
+			},
+			{
+				"name": "StateProvince",
+				"type": "nvarchar"
+			},
+			{
+				"name": "CountryRegion",
+				"type": "nvarchar"
+			},
+			{
+				"name": "PostalCode",
+				"type": "nvarchar"
+			},
+			{
+				"name": "rowguid",
+				"type": "uniqueidentifier"
+			},
+			{
+				"name": "ModifiedDate",
+				"type": "datetime",
+				"precision": 23,
 				"scale": 3
-			},
-			{
-				"name": "TaskCategory",
-				"type": "varchar"
-			},
-			{
-				"name": "Details",
-				"type": "varchar"
 			}
 		],
 		"typeProperties": {
-			"schema": "dbo",
-			"table": "Events"
+			"schema": "SalesLT",
+			"table": "Address"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"

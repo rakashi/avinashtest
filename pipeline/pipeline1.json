@@ -1,0 +1,140 @@
+{
+	"name": "pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "GetBearerToken",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": true,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/x-www-form-urlencoded"
+					},
+					"url": "https://accounts.accesscontrol.windows.net/c42675da-6e66-4200-9d0d-a2874cf3cf42/tokens/OAuth/2",
+					"body": "grant_type=client_credentials&client_id=9220626c-808c-4449-b26b-d177b5318769@c42675da-6e66-4200-9d0d-a2874cf3cf42&client_secret=ejz8Q~wBgx_iULlmhiESUtvRAeKpuxRhBvYhjaa1&resource=00000003-0000-0ff1-ce00-000000000000/gkn.sharepoint.com@c42675da-6e66-4200-9d0d-a2874cf3cf42"
+				}
+			},
+			{
+				"name": "GetSPOFolderMetadata",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "GetBearerToken",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": true
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "GET",
+					"headers": {
+						"Authorization": {
+							"value": "@{concat('Bearer ', activity('GetBearerToken').output.access_token)}",
+							"type": "Expression"
+						},
+						"Accept": "application/json"
+					},
+					"url": "https://gkn.sharepoint.com/sites/StreamOrphanVideos/_api/web/GetFolderByServerRelativeUrl('/sites/StreamOrphanVideos/ABI/Stream Migrated Videos')/Files"
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "GetSPOFolderMetadata",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('GetSPOFolderMetadata').output.value\n",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "BinarySource",
+									"storeSettings": {
+										"type": "HttpReadSettings",
+										"requestMethod": "GET",
+										"additionalHeaders": {
+											"value": "Authorization: Bearer @{activity('GetBearerToken').output.access_token}\nAccept: video/mp4;odata=verbose\nAccept-Encoding: identity\n",
+											"type": "Expression"
+										},
+										"requestTimeout": ""
+									},
+									"formatSettings": {
+										"type": "BinaryReadSettings"
+									}
+								},
+								"sink": {
+									"type": "BinarySink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings",
+										"copyBehavior": "PreserveHierarchy"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "Linked1HTTP",
+									"type": "DatasetReference",
+									"parameters": {
+										"DL_RelativeURL": {
+											"value": "@{item().ServerRelativeUrl}",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ls_adls_Blog",
+									"type": "DatasetReference"
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2025-02-27T05:00:24Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

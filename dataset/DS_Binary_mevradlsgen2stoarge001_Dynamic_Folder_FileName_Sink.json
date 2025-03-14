@@ -1,0 +1,34 @@
+{
+	"name": "DS_Binary_mevradlsgen2stoarge001_Dynamic_Folder_FileName_Sink",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_mevradlsgen2stoarge001_AccKey",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"DL_FileName": {
+				"type": "string"
+			},
+			"DL_Folder": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().DL_FileName",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().DL_Folder",
+					"type": "Expression"
+				},
+				"fileSystem": "output"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,11 +1,11 @@
 {
-	"name": "AzureBlobStorage1",
+	"name": "Staging_linkedService1",
 	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"annotations": [],
 		"type": "AzureBlobStorage",
 		"typeProperties": {
-			"serviceEndpoint": "https://adfdatasetdemos.blob.core.windows.net/",
+			"serviceEndpoint": "https://repoadfdemos.blob.core.windows.net/",
 			"accountKind": "StorageV2"
 		}
 	}

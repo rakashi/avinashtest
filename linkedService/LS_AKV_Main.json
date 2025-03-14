@@ -1,0 +1,12 @@
+{
+	"name": "LS_AKV_Main",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "Linked Service for Azure Key Vault",
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://IBUE2PROD01UDP-adf.vault.azure.net/"
+		}
+	}
+}

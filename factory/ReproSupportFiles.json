@@ -1,0 +1,9 @@
+{
+	"name": "ReproSupportFiles",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "fe39bb3f-dec7-41be-8c39-d910f00c7951",
+		"tenantId": "16b3c013-d300-468d-ac64-7eda0820b6d3"
+	}
+}
