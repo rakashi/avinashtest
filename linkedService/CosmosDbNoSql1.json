@@ -1,0 +1,19 @@
+{
+	"name": "CosmosDbNoSql1",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "CosmosDb",
+		"typeProperties": {
+			"accountEndpoint": "https://cosmos-pr.documents.azure.com:443/",
+			"database": "cosmos-pr-db",
+			"subscriptionId": "40af08c0-359a-4c4b-babf-b235daeab2df",
+			"tenantId": "16b3c013-d300-468d-ac64-7eda0820b6d3",
+			"resourceGroup": "MSFTRG"
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
